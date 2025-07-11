@@ -32,6 +32,18 @@ public class LoginService
         return JWTGeneration(userList.size() == 1, auth);
     }
 
+    private boolean validJWT(String authHeader)
+    {
+        String JWT = null;
+        String username = null;
+
+        if(authHeader != null && authHeader.startsWith("Bearer ")){
+            JWT = authHeader.substring(7);
+            username = jwtUtil.extractUsername(JWT);
+        }
+        return username != null && jwtUtil.validateToken(JWT);
+    }
+
     private ResponseEntity<?> JWTGeneration(boolean generateJWT, AuthRequest auth)
     {
         if(generateJWT){

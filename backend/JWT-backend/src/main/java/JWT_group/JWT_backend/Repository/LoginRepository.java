@@ -13,7 +13,7 @@ import java.util.List;
 public interface LoginRepository extends JpaRepository<User, Long>
 {
     @Transactional
-    @Query(value = "SELECT * FROM users WHERE username = :username or password = :password or email = :email", nativeQuery = true)
+    @Query(value = "SELECT * FROM users WHERE username = :username or email = :email", nativeQuery = true)
     public List<User> findUserWithSomeSameCredentials(@Param("username") String title,
                                                   @Param("password") String password,
                                                   @Param("email") String email);

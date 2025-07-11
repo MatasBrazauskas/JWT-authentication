@@ -13,3 +13,8 @@ export type FormError = {
 export type AuthenticationProps = {
     URL: string,
 }
+
+export type ActionState = 
+    | { type: 'LOGIN' }
+    | { type: 'REGISTER' }
+    | { type: 'SEND-EMAIL' }

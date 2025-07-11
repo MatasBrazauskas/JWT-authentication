@@ -23,7 +23,6 @@ public class LoginController
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody AuthRequest auth)
     {
-        System.out.println(auth.toString());
         return loginService.loginJWT(auth);
     }
 }

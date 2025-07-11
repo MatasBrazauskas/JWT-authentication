@@ -15,7 +15,7 @@ function AuthenticationPage({URL} : AuthenticationProps) {
   const [errors, setErrors] = useState<FormError>({});
 
   const focusInput = async (e: React.FormEvent) => {
-    e.preventDefault();
+        e.preventDefault();
 
     const formObj: FormObj = {
         username: username.current!.value,
@@ -26,15 +26,16 @@ function AuthenticationPage({URL} : AuthenticationProps) {
     setErrors(formValidationErrors(formObj));
 
     if(Object.keys(errors).length !== 0){
-      console.log(errors);
-      return;
+        console.log(errors);
+        return;
     }
 
     const jwt = await gettingJWT(formObj, URL);
     console.log(jwt);
 
     if(jwt){
-      sessionStorage.setItem(JWT, jwt);
+        sessionStorage.setItem(JWT, jwt);
+
     }
   };
 
