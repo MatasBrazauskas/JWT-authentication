@@ -15,6 +15,11 @@ export type AuthenticationProps = {
 }
 
 export type ActionState = 
+    | { type: 'LOADING' }
     | { type: 'LOGIN' }
     | { type: 'REGISTER' }
-    | { type: 'SEND-EMAIL' }
+    | { type: 'BOARD' }
+
+export type ReduxInitState = {
+    phase: string,
+}

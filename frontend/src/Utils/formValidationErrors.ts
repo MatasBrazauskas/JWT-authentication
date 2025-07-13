@@ -3,6 +3,7 @@ import type { FormObj, FormError } from './types';
 
 export const formValidationErrors = (obj: FormObj) : FormError => {
     let errors: FormError = {};
+    
     if(obj.username.length === 0){
         errors.username = "Add Password";
     }

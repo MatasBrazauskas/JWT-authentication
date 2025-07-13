@@ -1,17 +1,27 @@
-import { type ActionState } from "../Utils/types";
+import { type ActionState, type ReduxInitState } from "../Utils/types";
+import { configureStore, createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-const pageDispatch = (action: ActionState, navigate: (path: string) => void) : void => 
-{
-    switch(action.type)
-    {
-        case 'LOGIN':
-        case 'REGISTER':
-        case 'SEND-EMAIL':
-            navigate(`/${action.type.toLowerCase()}`);
-            break;
-        default:
-            navigate('/');
-    }
+const initialState: ReduxInitState = {
+    phase: 'LOGIN',
 }
 
-export default pageDispatch;
+const slice = createSlice({
+    name: 'app',
+    initialState,
+    reducers: {
+        setPhase: (state: ReduxInitState, action: PayloadAction<ActionState> ) => {
+            state.phase = action.type;
+        },
+    }
+});
+
+
+const store = configureStore({
+    reducer: {
+        app: slice.reducer,
+    }
+});
+
+export default store;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
