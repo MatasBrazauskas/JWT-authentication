@@ -1,7 +1,8 @@
 import { useRef, useState } from 'react';
-
 import { Chessboard, type PieceDropHandlerArgs } from "react-chessboard";
 import { Chess } from 'chess.js';
+
+import { sendData } from '../API/chessApi';
 
 function Board() {
 
@@ -39,9 +40,17 @@ function Board() {
         id: 'idk'
     };
 
+    const idk = async () => {
+        const temp = { fen: chessGame.fen(), depth: 8};
+        console.log(temp);
+        const i = await sendData(temp)
+        console.log(i);
+    }
+
     return (
         <div>
             <Chessboard options={chessboardOptions}/>
+            <button onClick = {() => idk()}>Data</button>
         </div>
     );
 };

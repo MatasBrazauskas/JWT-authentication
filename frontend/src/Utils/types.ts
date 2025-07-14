@@ -23,3 +23,17 @@ export type ActionState =
 export type ReduxInitState = {
     phase: string,
 }
+
+export type StockfishRequest = {
+    fen: string,
+    depth: number,
+}
+
+export type StockfishaResponse = {
+    success: boolean,
+    evaluation: number,
+    mate: number | null,
+    depth: number,
+    bestmove: string,
+    continuation: string,
+}
