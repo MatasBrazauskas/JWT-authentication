@@ -12,7 +12,7 @@ const Board = lazy(() => import('./Pages/Board'));
 
 function App()
 {
-    return (
+   return (
         <BrowserRouter>
             <Routes>
                 <Route path='/register' element={

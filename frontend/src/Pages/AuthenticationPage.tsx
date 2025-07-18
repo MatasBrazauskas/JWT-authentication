@@ -54,7 +54,7 @@ function AuthenticationPage({URL} : AuthenticationProps) {
         <form onSubmit={(e) => focusInput(e)}>
             <div>Login Page</div>
             <div>
-                <input type='text' ref={username} placeholder='Name'/>
+                <input type='text' ref={username} placeholder='Name' autoFocus/>
                 {errors.username && <div>{errors.username}</div>}
             </div>
 

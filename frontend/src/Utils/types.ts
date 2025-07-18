@@ -14,14 +14,18 @@ export type AuthenticationProps = {
     URL: string,
 }
 
-export type ActionState = 
+export type appActionState = 
     | { type: 'LOADING' }
     | { type: 'LOGIN' }
     | { type: 'REGISTER' }
     | { type: 'BOARD' }
 
-export type ReduxInitState = {
+export type appInitState = {
     phase: string,
+}
+
+export type chessboardInitState = {
+    fen: string,
 }
 
 export type StockfishRequest = {

@@ -1,14 +1,14 @@
 import { type FormObj } from '../Utils/types';
 
 async function gettingJWT(formObj: FormObj, URL: string): Promise<string | null> {
-  try {
-    const response = await fetch(URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formObj),
-    });
+    try {
+      const response = await fetch(URL, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formObj),
+      });
 
     if (!response.ok) {
         console.log(response);
