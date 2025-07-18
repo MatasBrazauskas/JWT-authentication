@@ -3,8 +3,8 @@ import { Chessboard, type PieceDropHandlerArgs } from "react-chessboard";
 import { Chess } from 'chess.js';
 
 import { chessApi } from '../API/chessApi';
-import { type AppDispatch } from '../Store/store';
-import { useDispatch } from 'react-redux';
+import { type AppDispatch, type RootState } from '../Store/store';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { setFen } from '../Store/chessboardSlice';
 import { setPhase } from '../Store/appSlice';
@@ -15,7 +15,7 @@ function Board() {
 
     const chessGameRef = useRef(new Chess());
     const chessGame = chessGameRef.current;
-    const [position, setPosition] = useState(chessGame.fen());
+    const [position, setPosition] = useState<string>(useSelector((state: RootState) => state.chessboardState).fen);
 
     const onPieceDrop = ({sourceSquare, targetSquare} : PieceDropHandlerArgs) : boolean => {
         if(!targetSquare){
@@ -54,7 +54,7 @@ function Board() {
         if(!responce){
             console.error("Can't send data to backend for API!");
         }else{
-            dispatch(setFen({type: '', payload: chessGame.fen()} ));
+            dispatch(setFen(temp);
         }
     }
 
