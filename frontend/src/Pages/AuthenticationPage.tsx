@@ -1,19 +1,25 @@
 import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
+import { useSelector } from 'react-redux';
+
 import type { FormObj, FormError } from '../Utils/types';
 import { formValidationErrors } from '../Utils/formValidationErrors';
 import { type AuthenticationProps } from '../Utils/types';
 import gettingJWT from '../Services/gettingJWT';
 import { JWT } from '../Utils/constants';
 
-import { type AppDispatch } from '../Store/store';
+import { type AppDispatch, type RootState } from '../Store/store';
 import { useDispatch } from 'react-redux';
+
+import { setPhase } from '../Store/appSlice';
+import { BarLoader } from 'react-spinners';
 
 function AuthenticationPage({URL} : AuthenticationProps) {
 
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
+    const isLoading: boolean = useSelector((state: RootState) => state.appState.phase === 'LOADING');
 
     const username = useRef<HTMLInputElement | null>(null);
     const password = useRef<HTMLInputElement | null>(null);
@@ -31,13 +37,14 @@ function AuthenticationPage({URL} : AuthenticationProps) {
             email: email.current!.value,
         }
 
-      setErrors(formValidationErrors(formObj));
+        setErrors(formValidationErrors(formObj));
 
         if(Object.keys(errors).length !== 0){
             console.log(errors);
             return;
         }
 
+        dispatch(setPhase('LOADING'));
         const jwt = await gettingJWT(formObj, URL);
         console.log(jwt);
 
@@ -45,6 +52,8 @@ function AuthenticationPage({URL} : AuthenticationProps) {
             sessionStorage.setItem(JWT, jwt);
             navigate('/board');
             dispatch({type: 'BOARD'});
+        }else{
+            dispatch(setPhase('REGISTER'));
         }
     };
 
@@ -52,6 +61,7 @@ function AuthenticationPage({URL} : AuthenticationProps) {
 
     return (
         <form onSubmit={(e) => focusInput(e)}>
+            {isLoading && <BarLoader/>}
             <div>Login Page</div>
             <div>
                 <input type='text' ref={username} placeholder='Name' autoFocus/>

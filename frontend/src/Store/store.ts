@@ -1,12 +1,13 @@
-import { setFen } from './chessboardSlice.ts';
-import { setPhase } from "./appSlice.ts";
+import chessboardReducer from './chessboardSlice'; 
+import appReducer from "./appSlice";
+
 import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
     reducer: {
-        chessboardState: setFen,
-        appState: setPhase,
-    }   
+        chessboardState: chessboardReducer, 
+        appState: appReducer,
+    }   
 });
 
 export default store;

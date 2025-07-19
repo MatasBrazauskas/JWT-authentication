@@ -10,9 +10,11 @@ const appSlice = createSlice({
     initialState,
     reducers: {
         setPhase: (state: appInitState, action: PayloadAction<appActionState> ) => {
-            state.phase = action.type;
+            state.phase = action.payload;
         },
     }
 });
 
-export const setPhase = appSlice.reducer;
+export const { setPhase } = appSlice.actions;
+
+export default appSlice.reducer;

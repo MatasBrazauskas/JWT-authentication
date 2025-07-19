@@ -15,10 +15,10 @@ export type AuthenticationProps = {
 }
 
 export type appActionState = 
-    | { type: 'LOADING' }
-    | { type: 'LOGIN' }
-    | { type: 'REGISTER' }
-    | { type: 'BOARD' }
+    | 'LOADING'
+    | 'LOGIN'
+    | 'REGISTER'
+    | 'BOARD'
 
 export type appInitState = {
     phase: string,
@@ -33,7 +33,7 @@ export type StockfishRequest = {
     depth: number,
 }
 
-export type StockfishaResponse = {
+export type StockfishResponse = {
     success: boolean,
     evaluation: number,
     mate: number | null,

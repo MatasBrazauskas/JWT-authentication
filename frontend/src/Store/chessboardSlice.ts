@@ -16,4 +16,6 @@ const chessboardSlice = createSlice({
     }
 });
 
-export const setFen  = chessboardSlice.reducer;
+export const { setFen } = chessboardSlice.actions;
+
+export default chessboardSlice.reducer;

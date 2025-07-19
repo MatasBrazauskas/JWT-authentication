@@ -2,12 +2,16 @@ import { useRef, useState } from 'react';
 import { Chessboard, type PieceDropHandlerArgs } from "react-chessboard";
 import { Chess } from 'chess.js';
 
-import { chessApi } from '../API/chessApi';
+import { chessEvalAPI } from '../API/chessEvalApi';
 import { type AppDispatch, type RootState } from '../Store/store';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setFen } from '../Store/chessboardSlice';
 import { setPhase } from '../Store/appSlice';
+
+import { BarLoader } from 'react-spinners';
+
+import { SearchBar } from '../Components/SearchBar';
 
 function Board() {
 
@@ -16,6 +20,7 @@ function Board() {
     const chessGameRef = useRef(new Chess());
     const chessGame = chessGameRef.current;
     const [position, setPosition] = useState<string>(useSelector((state: RootState) => state.chessboardState).fen);
+    const isLoading: boolean = useSelector((state: RootState) => state.appState.phase === 'LOADING');
 
     const onPieceDrop = ({sourceSquare, targetSquare} : PieceDropHandlerArgs) : boolean => {
         if(!targetSquare){
@@ -48,21 +53,25 @@ function Board() {
     };
 
     const idk = async () => {
+        dispatch(setPhase('LOADING'));
         const temp = { fen: chessGame.fen(), depth: 12};
-        const responce = await chessApi(temp);
+        const responce = await chessEvalAPI(temp);
 
         if(!responce){
             console.error("Can't send data to backend for API!");
         }else{
-            dispatch(setFen(temp);
+            console.log(responce);
+            dispatch(setFen(chessGame.fen()));
         }
+        dispatch(setPhase('BOARD'));
     }
 
     return (
         <div>
+            <BarLoader loading={isLoading} width='700px'/>
             <Chessboard options={chessboardOptions}/>
-            <div></div>
-            <button onClick = {() => idk()}>Data</button>
+            <button onClick={() => idk()}>Data</button>
+            <SearchBar/>
         </div>
     );
 };
