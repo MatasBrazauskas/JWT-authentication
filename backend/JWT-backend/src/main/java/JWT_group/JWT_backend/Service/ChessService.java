@@ -54,7 +54,6 @@ public class ChessService
     public ChessPlayerRatings getPlayersRatings(String userName)
     {
         String url = UriComponentsBuilder.fromHttpUrl(chessComURL).pathSegment("player", userName, "stats").toUriString();
-        System.out.println(url);
         try{
             ResponseEntity<PlayerStats> responseEntity = restTemplate.getForEntity(
                     url,
