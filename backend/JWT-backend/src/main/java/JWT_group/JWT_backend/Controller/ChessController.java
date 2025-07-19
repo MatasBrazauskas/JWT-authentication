@@ -1,6 +1,7 @@
 package JWT_group.JWT_backend.Controller;
 
-import JWT_group.JWT_backend.DTOs.ChessPlayersRatings;
+import JWT_group.JWT_backend.DTOs.ChessRatings.ChessPlayerRatings;
+import JWT_group.JWT_backend.DTOs.ChessRatings.PlayerStats;
 import JWT_group.JWT_backend.DTOs.StockfishAPIRequest;
 import JWT_group.JWT_backend.DTOs.StockfishAPIResponse;
 import JWT_group.JWT_backend.Service.ChessService;
@@ -30,7 +31,7 @@ public class ChessController
     @GetMapping("/player/{username}")
     public ResponseEntity<?> getPlayersRating(@PathVariable("username") String username)
     {
-        ChessPlayersRatings playersRatings = chessService.getPlayersRatings(username);
+        ChessPlayerRatings playersRatings = chessService.getPlayersRatings(username);
         if(playersRatings == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad request.");
         }

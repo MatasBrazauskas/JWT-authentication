@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import useDebounce from '../Hooks/useDebounce';
 
 import { DEBOUNCE_DELAY } from '../Utils/constants';
@@ -6,17 +6,15 @@ import { chessPlayerAPI } from '../API/chessPlayerApi';
 
 export const SearchBar = () => {
 
-    const input = useRef<HTMLInputElement | null>(null);
-    const debounceSearchTerm = useDebounce(input, DEBOUNCE_DELAY);
+    const [username, setUsername] = useState('');
+    const debounceSearchTerm = useDebounce(username, DEBOUNCE_DELAY);
 
     useEffect(() => {
-        console.log(input.current?.value);
+        console.log();
         const getRatings = async () => {
-            const username = input.current?.value;
-            if(username){
-                const response = await chessPlayerAPI(username);
-                console.log(response);
-            }
+            const response = await chessPlayerAPI(username);
+            console.log(response);
+            
         }
         getRatings();
     }, [debounceSearchTerm]);
@@ -24,7 +22,7 @@ export const SearchBar = () => {
     return (
         <div>
             <form>
-                <input placeholder='Enter a Chess.com users name' ref = {input}/>
+                <input placeholder='Enter a Chess.com users name' onChange={(e) => setUsername(e.target.value)}/>
             </form>
         </div>
     );
