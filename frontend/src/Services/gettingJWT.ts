@@ -16,8 +16,6 @@ async function gettingJWT(formObj: FormObj, URL: string): Promise<string | null>
     }
 
     const data = await response.json();
-    console.log(data);
-    console.log(data.jwt);
 
     if(data){
         return data.jwt;

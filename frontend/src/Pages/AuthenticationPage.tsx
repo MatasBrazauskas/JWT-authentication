@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 
 import { useSelector } from 'react-redux';
 
@@ -12,14 +12,14 @@ import { JWT } from '../Utils/constants';
 import { type AppDispatch, type RootState } from '../Store/store';
 import { useDispatch } from 'react-redux';
 
-import { setPhase } from '../Store/appSlice';
+import { setLoadingPhase } from '../Store/loadingSlice';
 import { BarLoader } from 'react-spinners';
 
-function AuthenticationPage({URL} : AuthenticationProps) {
+function AuthenticationPage({URL, stage} : AuthenticationProps) {
 
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
-    const isLoading: boolean = useSelector((state: RootState) => state.appState.phase === 'LOADING');
+    const isLoading: boolean = useSelector((state: RootState) => state.loadingState.phase === 'LOADING');
 
     const username = useRef<HTMLInputElement | null>(null);
     const password = useRef<HTMLInputElement | null>(null);
@@ -44,20 +44,20 @@ function AuthenticationPage({URL} : AuthenticationProps) {
             return;
         }
 
-        dispatch(setPhase('LOADING'));
+        dispatch(setLoadingPhase('LOADING'));
         const jwt = await gettingJWT(formObj, URL);
-        console.log(jwt);
 
         if(jwt){
             sessionStorage.setItem(JWT, jwt);
             navigate('/board');
             dispatch({type: 'BOARD'});
         }else{
-            dispatch(setPhase('REGISTER'));
+            dispatch(setLoadingPhase('REGISTER'));
         }
     };
 
     const inputsType = showPassword ? 'text' : 'password';
+    const nextPage = stage === 'LOGIN' ? 'REGISTER' : 'LOGIN';
 
     return (
         <form onSubmit={(e) => focusInput(e)}>
@@ -84,6 +84,10 @@ function AuthenticationPage({URL} : AuthenticationProps) {
 
             <div>
                 <button type='submit'>Sumbit</button>
+            </div>
+
+            <div>
+                <NavLink to={(`/${nextPage.toLowerCase()}`)}>{nextPage}</NavLink>
             </div>
     </form>
   );

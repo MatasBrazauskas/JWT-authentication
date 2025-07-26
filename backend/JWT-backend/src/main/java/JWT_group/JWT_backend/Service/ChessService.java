@@ -6,23 +6,25 @@ import JWT_group.JWT_backend.DTOs.StockfishAPIRequest;
 import JWT_group.JWT_backend.DTOs.StockfishAPIResponse;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+@Lazy
 @Service
 public class ChessService
 {
-    private final ModelMapper modelMapper;
-    private final RestTemplate restTemplate;
+    @Lazy
+    @Autowired
+    private ModelMapper modelMapper;
 
-    public ChessService(ModelMapper modelMapper, RestTemplate restTemplate)
-    {
-        this.modelMapper = modelMapper;
-        this.restTemplate = restTemplate;
-    }
+    @Lazy
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Value("${stockfish.api}")
     private String stockfishURL;

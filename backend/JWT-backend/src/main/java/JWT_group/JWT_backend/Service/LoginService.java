@@ -6,16 +6,23 @@ import JWT_group.JWT_backend.Entities.User;
 import JWT_group.JWT_backend.Repository.LoginRepository;
 import JWT_group.JWT_backend.Validation.JwtUtil;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+@Lazy
 @Service
-@AllArgsConstructor
 public class LoginService
 {
+    @Lazy
+    @Autowired
     private LoginRepository loginRepository;
-    private final JwtUtil jwtUtil;
+
+    @Lazy
+    @Autowired
+    private JwtUtil jwtUtil;
 
     public ResponseEntity<?> registeredUserJWT(AuthRequest auth)
     {

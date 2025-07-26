@@ -5,9 +5,12 @@ import JWT_group.JWT_backend.DTOs.ChessRatings.PlayerStats;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 @Configuration
+@Component
 public class ModelMappingConfig
 {
     @Bean

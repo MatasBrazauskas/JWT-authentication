@@ -12,15 +12,16 @@ export type FormError = {
 
 export type AuthenticationProps = {
     URL: string,
+    stage: "LOGIN" | "REGISTER";
 }
 
-export type appActionState = 
+export type loadingActionState = 
     | 'LOADING'
     | 'LOGIN'
     | 'REGISTER'
     | 'BOARD'
 
-export type appInitState = {
+export type loadingInitState = {
     phase: string,
 }
 
@@ -40,4 +41,19 @@ export type StockfishResponse = {
     depth: number,
     bestmove: string,
     continuation: string,
+}
+
+export type PlayerRating = {
+    rapid_rating: number,
+    blitz_rating: number,
+    bullet_rating: number,
+}
+
+export type pageActionState = 
+    | "SEARCH"
+    | "GAMES"
+    | "ANALYZE"
+
+export type pageInitState = {
+    state: string,
 }

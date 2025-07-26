@@ -10,12 +10,22 @@ const chessboardSlice = createSlice({
     name: 'chessboardState',
     initialState,
     reducers: {
-        setFen: (state, action: PayloadAction<string> ) => {
-            state.fen = action.payload;
-        },
+        setChessboard: (state, action: PayloadAction<{ history: string[], length: number }>) => {
+            if (!state.fen || action.payload.length <= 0) return;
+
+            const { history, length } = action.payload;
+
+            const subsetChessGame = new Chess();
+
+            for (let i = 0; i < length && i < history.length; i++) {
+                subsetChessGame.move(history[i]);
+            }
+
+            state.fen = subsetChessGame.fen();
+        }
     }
 });
 
-export const { setFen } = chessboardSlice.actions;
+export const { setChessboard } = chessboardSlice.actions;
 
 export default chessboardSlice.reducer;

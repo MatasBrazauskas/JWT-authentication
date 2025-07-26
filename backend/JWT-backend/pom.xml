@@ -5,11 +5,8 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<!-- RECOMMENDATION: Stick to a stable version like 3.2.7 or 3.3.1.
-             If you truly intend to use 3.5.3 (which might be a snapshot/pre-release),
-             ensure all other starters are compatible. -->
 		<version>3.5.3</version>
-		<relativePath/>
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>JWT-group</groupId>
 	<artifactId>JWT-backend</artifactId>
@@ -32,7 +29,7 @@
 	<properties>
 		<java.version>17</java.version>
 		<jjwt.version>0.11.5</jjwt.version>
-		<lombok.version>1.18.32</lombok.version> <!-- Defined for consistency -->
+		<lombok.version>1.18.38</lombok.version> <!-- UPDATED: Changed from 1.18.32 to 1.18.38 for better JDK compatibility -->
 	</properties>
 	<dependencies>
 		<dependency>
@@ -55,6 +52,10 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
+			<!--
+            The version is inherited from the <properties> section.
+            Ensure this dependency is correctly configured for annotation processing.
+            -->
 		</dependency>
 
 		<dependency>
@@ -94,6 +95,14 @@
 		</dependency>
 	</dependencies>
 
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
+
 	<build>
 		<finalName>app</finalName>
 		<plugins>
@@ -122,7 +131,11 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
-					<!-- !!! VERIFY THIS mainClass PATH IS CORRECT FOR YOUR PROJECT !!! -->
+					<!--
+                    IMPORTANT: Verify this mainClass path is absolutely correct for your project.
+                    Incorrect path here will prevent the Spring Boot application from starting.
+                    Example: com.example.yourpackage.YourMainApplicationClass
+                    -->
 					<mainClass>JWT_group.JWT_backend.JwtBackendApplication</mainClass>
 					<!-- Removed <jvmArguments> to avoid suppressing warnings improperly -->
 				</configuration>
